@@ -12,7 +12,13 @@
           (click)="onCreateServer()">Add Server
   </button>
   <!--<p [innerText]="allowNewServers"></p>-->
-  <p>{{serverCreationStatus}}</p>
+  <!--<p>{{serverCreationStatus}}</p>-->
+  <p *ngIf="serverCreated; else noServer">Server was created, server name is --- {{ serverName}}</p>
+  <!--<p *ngIf="!serverCreated">No server was created!</p>-->
+  <ng-template #noServer>
+    <p>No server was created!</p>
+  </ng-template>
+
 </div>
 
 <hr>
@@ -27,12 +33,32 @@
   <div class="align-content-md-around">
     <p class="p-3">{{username}}</p>
   </div>
+
   <button class="btn btn-primary"
-          [disabled]="!allowNewServers"
-          (click)="onCreateUserName()">Reset UserName
+          [disabled]="username === ''"
+          (click)="onResetUserName()">Reset User Name
   </button>
+  <hr>
+
+
+  <app-server *ngFor="let server of servers"></app-server>
+
 </div>
 
-<app-server></app-server>
-<app-server></app-server>
 
+<div>
+  <!--<button class="btn btn-primary"-->
+  <!--(click)="showSecret = !showSecret">-->
+  <!--Display Details-->
+  <!--</button>-->
+  <button class="btn btn-primary"
+          (click)="onToggleDetails()">
+    Display Details
+  </button>
+  <p *ngIf="showSecret">Secret Password = Tuna</p>
+
+  <div *ngFor="let logTime of timeStamp; let i = index"
+       [ngStyle]="{backgroundColor: i >= 4 ? 'blue' : 'transparent'}"
+       [ngClass]="{'white-text' : i >= 4}"
+  >{{ logTime }}</div>
+</div>

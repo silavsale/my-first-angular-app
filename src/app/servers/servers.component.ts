@@ -14,21 +14,40 @@ export class ServersComponent implements OnInit {
   serverCreationStatus = 'No server was created!';
   serverName = 'Testserver';
   username = '';
+  serverCreated = false;
+  servers = ['Testserver', 'Testserver 2'];
+  password = 'Tuna';
+  timeStamp = [];
+  date = Date();
+  showSecret = false;
 
   constructor() {
     setTimeout(() => {
       this.allowNewServers = true;
     }, 2000);
+
   }
 
   ngOnInit() {
   }
 
-  onCreateServer() {
-    this.serverCreationStatus = 'Server was created! Name is ' + this.serverName;
+  hideP() {
+
   }
 
-  onCreateUserName() {
+  onToggleDetails() {
+    this.showSecret = !this.showSecret;
+    this.timeStamp.push(new Date());
+  }
+
+
+  onCreateServer() {
+    this.serverCreated = true;
+    // this.serverCreationStatus = 'Server was created! Name is ' + this.serverName;
+    this.servers.push(this.serverName);
+  }
+
+  onResetUserName() {
     this.username = '';
   }
 
